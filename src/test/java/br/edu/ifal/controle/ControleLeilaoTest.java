@@ -69,5 +69,37 @@ public class ControleLeilaoTest {
         boolean validadeEsperada = true;
         assertEquals(validadeEsperada, validadeRetornada);
     }
+    @Test
+    public void deveRetornarVerdadeiroParaOPrimeiroLanceDoLeilaoMaiorQueOValorMinimo() {
+        Lance novoLance = new Lance(cliente, 2700);
+        boolean validadeRetornada = controle.validarLance(novoLance, leilao);
+        boolean validadeEsperada = true;
+        assertEquals(validadeEsperada, validadeRetornada);
+    }
+    @Test
+    public void deveRetornarFalsoParaUmNovoLanceMenorQueOLanceAneterior() {
+        leilao.adicionarLance(new Lance(cliente, 2600));
+        Lance novoLance = new Lance(cliente, 2500);
+        boolean validadeRetornada = controle.validarLance(novoLance, leilao);
+        boolean validadeEsperada = false;
+        assertEquals(validadeEsperada, validadeRetornada);
+    }
+    @Test
+    public void deveRetornarverdadeiroParaUmNovoLanceMaiorQueOLanceAneterior() {
+        leilao.adicionarLance(new Lance(cliente, 4600));
+        Lance novoLance = new Lance(cliente2, 6700);
+        boolean validadeRetornada = controle.validarLance(novoLance, leilao);
+        boolean validadeEsperada = true;
+        assertEquals(validadeEsperada, validadeRetornada);
+    }
+    @Test
+    public void deveRetornarFalsoSeOValorForIgualAoAnterior() {
+        leilao.adicionarLance(new Lance(cliente, 2600));
+        Lance novoLance = new Lance(cliente, 2600);
+        boolean validadeRetornada = controle.validarLance(novoLance, leilao);
+        boolean validadeEsperada = false;
+        assertEquals(validadeEsperada, validadeRetornada);
+    }
+    
 
 }
